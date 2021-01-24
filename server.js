@@ -15,7 +15,7 @@ app.use(parser.json())
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 // Port website will run on
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 
 const multer = require('multer');
 const storage = multer.diskStorage({
