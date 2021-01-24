@@ -1,0 +1,157 @@
+<html>
+<head>
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 50%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+.tabcontent {
+  color: black;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+</style>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="../../public/js/postrequest.js"></script>
+<script>
+function openPage(pageName, elmnt, color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+
+  document.getElementById(pageName).style.display = "block";
+
+  elmnt.style.backgroundColor = color;
+}
+
+document.getElementById("defaultOpen").click();
+</script>
+
+</head>
+
+<body>
+
+  <button class="tablink" onclick="openPage('Home', this, 'gray')" id="defaultOpen">Upcoming Submissions</button>
+  <button class="tablink" onclick="openPage('News', this, 'gray')">Submitted Submissions</button>
+
+<form class="form-horizontal" action="/logout" method="GET" id="applicationForm">
+                        <div class="control-group">
+                            <div class="controls">
+                                <button class="btn btn-success" id="btnSubmit">Logout</button>
+                            </div>
+                        </div>
+                        </form>
+
+  <div id="Home" class="tabcontent">
+
+        <fieldset>
+            <div id="legend">
+                <legend class="">Upcoming Submissions</legend>
+            </div>
+
+     <table>
+      <tr>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Deadline</th>
+        <th>Upload Solution</th>
+      </tr>
+      <% for(let assignment of assignments) { %>
+      <tr>
+        <td><%=assignment.name%></td>
+        <td><%=assignment.subject%></td>
+        <td><%=assignment.deadline%></td>
+        <td>
+        <form class="form-horizontal" enctype="multipart/form-data" action="/submission" method="POST" id="applicationForm">
+        <input type="hidden" name="assignment_id" value=<%=assignment._id%> >
+        <div class="control-group">
+
+                            <div class="controls">
+                                <input type="file" id="solution" name="question" placeholder="" class="input-xlarge">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <!-- Button -->
+                            <div class="controls">
+                                <button class="btn btn-success" id="btnSubmit">Submit</button>
+                            </div>
+                        </div>
+
+                        </form>
+                        </td>
+      </tr>
+      <% } %>
+    </table>
+
+        </fieldset>
+
+  </div>
+
+  <div id="News" class="tabcontent">
+    <h3>Submitted Submissions</h3>
+    <table>
+          <tr>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Question</th>
+            <th>Solution</th>
+          </tr>
+    <% for(let submission of submissions) { %>
+    <tr>
+    <td><%=submission.assignment_name%></td>
+    <td><%=submission.assignment_subject%></td>
+    <td><%=submission.assignment_question%></td>
+    <td><%=submission.solution%></td>
+    </tr>
+    <% } %>
+    </table>
+  </div>
+</body>
+</html>
