@@ -121,7 +121,7 @@ document.getElementById("defaultOpen").click();
 
                 <label class="control-label"  for="password_confirm">Deadline</label>
                 <div class="controls">
-                    <input type="number" id="password_confirm" name="deadline" placeholder="" class="input-xlarge">
+                    <input type="number" id="deadline" min="0" name="deadline" placeholder="" class="input-xlarge">
                 </div>
             </div>
 
@@ -137,6 +137,13 @@ document.getElementById("defaultOpen").click();
 
   <div id="News" class="tabcontent">
     <h3>Submissions</h3>
+      <form class="form-horizontal" action="/submissions" method="POST" id="applicationForm">
+          <label class="control-label" for="search">Search: </label>
+          <input type="text" name="search">
+          <div class="control-group">
+              <button class="btn btn-success" id="btnSubmit">Submit</button>
+          </div>
+      </form>
     <table>
       <tr>
         <th>Student Name</th>
@@ -170,7 +177,7 @@ document.getElementById("defaultOpen").click();
         <td><%=submission.submission_time%></td>
         <td>
         <% if (submission.grade) { %>
-        <%=submission.grade%>
+        <%=submission.grade%> / 10
         <% } else { %>
         <form class="form-horizontal" action="/grade" method="POST" id="applicationForm">
         <input type="hidden" name="submission_id" value=<%=submission._id%>>

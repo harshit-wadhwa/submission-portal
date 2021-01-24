@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // connect to mongo db
-const mongoUri = process.env.MONGODB;
+const mongoUri = 'mongodb+srv://harshit:wadhwa@cluster0.xeob6.mongodb.net/submissions?retryWrites=true&w=majority';//process.env.MONGODB;
 let options = {keepAlive: 1, useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true};
 mongoose.connect(mongoUri, options);
 mongoose.connection.on('error', () => {

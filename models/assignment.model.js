@@ -19,6 +19,10 @@ const AssignmentSchema = new mongoose.Schema({
     },
     submitted_by: {
         type: Array
+    },
+    created_at: {
+        type: Date,
+        default: Date.now
     }
 }, {
     versionKey: false
