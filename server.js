@@ -1,6 +1,7 @@
 // Load Node modules
 const express = require('express');
 const parser = require('body-parser');
+const path = require('path');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const User = require('./model');
@@ -306,5 +307,12 @@ app.post('/grade', async function (req, res) {
     ]);
     console.log(submissions);
     res.render('pages/instructor-dashboard', {submissions});
+});
+
+app.post("/show-file", (req, res) => {
+    console.log(req.body);
+    const filePath = path.join(__dirname, "./uploads/" + req.body.file_name);
+    console.log(filePath);
+    res.sendFile(filePath);
 });
 

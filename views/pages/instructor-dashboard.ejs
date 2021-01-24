@@ -152,8 +152,21 @@ document.getElementById("defaultOpen").click();
         <td><%=submission.user_name%></td>
         <td><%=submission.assignment_name%></td>
         <td><%=submission.assignment_subject%></td>
-        <td><%=submission.assignment_question%></td>
-        <td><%=submission.solution%></td>
+        <td>
+        <form class="form-horizontal" action="/show-file" target="_blank" method="POST" id="applicationForm">
+                <input type="hidden" name="file_name" value=<%=submission.assignment_question%>>
+                            <div class="control-group">
+                                    <button class="btn btn-success" id="btnSubmit">View</button>
+                            </div>
+                </form>
+        <td>
+        <form class="form-horizontal" action="/show-file" target="_blank" method="POST" id="applicationForm">
+                        <input type="hidden" name="file_name" value=<%=submission.solution%>>
+                                    <div class="control-group">
+                                            <button class="btn btn-success" id="btnSubmit">View</button>
+                                    </div>
+                        </form>
+        </td>
         <td><%=submission.submission_time%></td>
         <td>
         <% if (submission.grade) { %>
